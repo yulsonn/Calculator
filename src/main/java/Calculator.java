@@ -14,30 +14,30 @@ public class Calculator extends JFrame {
     private CalcPanel panel;
 
     public Calculator() {
-        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);                     //задаем размеры фрейма
-        setLocationRelativeTo(null);                                //задаем отображение по центру экрана
-        setTitle("Simple Calculator");                              //задаем название фрейма
-        setResizable(false);                                        //делаем размер фрейма неизменным
-        panel = new CalcPanel();                                    //создаем панель CalcPanel
-        add(panel);                                                 //добавляем панель на фрейм
+        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        setLocationRelativeTo(null);                                //show frame in the center of screen
+        setTitle("Simple Calculator");
+        setResizable(false);
+        panel = new CalcPanel();
+        add(panel);
     }
 
     class CalcPanel extends JPanel {
-        JTextField display = new JTextField();                      //поле для вывода результата
+        JTextField display = new JTextField();                      //field for results
 
         public CalcPanel() {
-            setLayout(new GridBagLayout());                         //задаем layout для CalcPanel
+            setLayout(new GridBagLayout());
 
-            display.setFont(new Font("calcFont", Font.PLAIN, 20));  //поле вывода:  увеличиваем шрифт
-            display.setEditable(false);                             //              делаем неизменяемым
-            display.setHorizontalAlignment(JTextField.RIGHT);       //              выравнивание по правому краю
-            display.setBackground(Color.WHITE);                     //              background цвет
+            display.setFont(new Font("calcFont", Font.PLAIN, 20));
+            display.setEditable(false);
+            display.setHorizontalAlignment(JTextField.RIGHT);
+            display.setBackground(Color.WHITE);
 
-            result = 0;                                             //вспомогательные поля для вычислений
+            result = 0;                                             //auxiliary fields for calculations
             lastCommand = "=";
             start = true;
 
-            // создаем массив char-ов с названиями для кнопок
+            // create char-array for the buttons names
             char[] operations = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                     '+',    //10
                     'C',    //11
@@ -47,15 +47,15 @@ public class Calculator extends JFrame {
                     '.',    //15
                     '='};   //16
 
-            // создаем коллекцию кнопок
+            // create collection of buttons
             ArrayList<JButton> buttons = new ArrayList<JButton>();
             for (int i = 0; i < operations.length; i++) {
-                buttons.add(new JButton("" + operations[i]));                           //добавляем в коллекцию кнопки с названиями из массива operations
-                buttons.get(i).addActionListener(new ButtonsActionListener());          //добавляем к кнопкам ActionListener-ов
-                buttons.get(i).setFont(new Font("calcFont", Font.PLAIN, 17));           //увеличиваем шрифт
+                buttons.add(new JButton("" + operations[i]));
+                buttons.get(i).addActionListener(new ButtonsActionListener());
+                buttons.get(i).setFont(new Font("calcFont", Font.PLAIN, 17));
             }
 
-            //задаем отображение кнопок на панели CalcPanel
+            //define location of buttons on CalcPanel
             add(display, new GridBagConstraints(0, 0, 4, 1, 1, 1,
                     GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL,
                     new Insets(2, 2, 2, 2), 0, 0));
@@ -111,7 +111,7 @@ public class Calculator extends JFrame {
                     GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL,
                     new Insets(2, 2, 2, 2), 0, 0));
 
-            setVisible(true);                                                       //делаем панель видимой
+            setVisible(true);
         }
     }
 
@@ -119,7 +119,7 @@ public class Calculator extends JFrame {
     class ButtonsActionListener implements ActionListener {
 
         @Override
-        //метод actionPerformed проверяет какая кнопка была нажата, в соответствии с этим выполняет необходимые действия
+
         public void actionPerformed(ActionEvent e) {
             String input = e.getActionCommand();
             boolean isDigit = Character.isDigit(input.charAt(0));
@@ -139,7 +139,7 @@ public class Calculator extends JFrame {
 
             } else {
                 if (start) {
-                    if (input.equals("-")) {            //проверка на знак - перед числом(отрицательное число)
+                    if (input.equals("-")) {            //check for negative number
                         panel.display.setText(input);
                         start = false;
                     } else {
@@ -154,7 +154,7 @@ public class Calculator extends JFrame {
         }
 
 
-        //метод calculate производит вычисления и выводит результат
+        //calculate and display the result
         public void calculate(double x) {
             if (lastCommand.equals("+")) {
                 result += x;
@@ -173,8 +173,8 @@ public class Calculator extends JFrame {
 
     public static void main(String[] args) {
         Calculator calc = new Calculator();
-        calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);             //операция отвечающая за окончание программы после закрытия фрейма
-        calc. setVisible(true);                                         //делаем фрейм видимым
+        calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        calc. setVisible(true);
     }
 }
 
