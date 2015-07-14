@@ -119,7 +119,6 @@ public class Calculator extends JFrame {
     class ButtonsActionListener implements ActionListener {
 
         @Override
-
         public void actionPerformed(ActionEvent e) {
             String input = e.getActionCommand();
             boolean isDigit = Character.isDigit(input.charAt(0));
@@ -156,6 +155,7 @@ public class Calculator extends JFrame {
 
         //calculate and display the result
         public void calculate(double x) {
+            String error = "";
             if (lastCommand.equals("+")) {
                 result += x;
             } else if (lastCommand.equals("-")) {
@@ -163,11 +163,20 @@ public class Calculator extends JFrame {
             } else if (lastCommand.equals("*")) {
                 result *= x;
             } else if (lastCommand.equals("/")) {
-                result /= x;
+                if (x != 0){
+                    result /= x;
+                } else {
+                    result = 0;
+                    error = "Div/0 ERROR!";
+                }
             } else if (lastCommand.equals("=")) {
                 result = x;
             }
-            panel.display.setText("" + result);
+            if ("".equals(error)){
+                panel.display.setText("" + result);
+            } else {
+                panel.display.setText(error);
+            }
         }
     }
 
